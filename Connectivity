@@ -1,0 +1,44 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using System.Data.Sql;
+using System.Data.SqlClient;
+
+namespace WebApplication1
+{
+    public partial class WebForm1 : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            showdata();
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            SqlConnection cn = new SqlConnection(@"Data Source=DESKTOP-CCNHMQU\SQLEXPRESS;Initial Catalog=brijesh;Integrated Security=True");
+            cn.Open();
+            string sql = "insert into stud values('"+TextBox1.Text+ "','"+TextBox2.Text+"')";
+            SqlDataAdapter sda = new SqlDataAdapter(sql,cn);
+            DataTable dt = new DataTable();     
+            sda.Fill(dt);
+            Response.Write("Insert");
+            cn.Close();
+
+        }
+
+        private void showdata()
+        {
+            SqlConnection cn = new SqlConnection(@"Data Source=DESKTOP-CCNHMQU\SQLEXPRESS;Initial Catalog=brijesh;Integrated Security=True");
+            cn.Open();
+            string sql = "select* from stud";
+            SqlDataAdapter sda = new SqlDataAdapter(sql, cn);
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            GridView1.DataSource = dt;  
+            GridView1.DataBind();
+            cn.Close();
+        }
