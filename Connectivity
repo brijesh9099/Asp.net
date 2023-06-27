@@ -42,3 +42,16 @@ namespace WebApplication1
             GridView1.DataBind();
             cn.Close();
         }
+        protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SqlConnection cn = new SqlConnection(@"Data Source=DESKTOP-CCNHMQU\SQLEXPRESS;Initial Catalog=brijesh;Integrated Security=True");
+            cn.Open();
+            string sql = "update stud set name='"+TextBox1.Text+"',rollno='"+TextBox2.Text+"' where name='"+TextBox1.Text+"'";
+            SqlDataAdapter sda = new SqlDataAdapter(sql, cn);
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            Response.Write("Insert");
+            cn.Close();
+        }
+    }
+}
